@@ -1,6 +1,6 @@
 import axios from "axios";
-
-
+import { connect } from '../models/useAuth';
+import { setLoginInfo } from '../views/MainPage';
 var apiUrl = 'http://localhost:5000/api'
 
 export function callApiGet(route) {
@@ -16,17 +16,18 @@ export function callApiPost(route, data) {
         url: `${apiUrl}/${route}`,
         data: data,
     })
-    .then(
+        .then(
             (resp) => {
-                if (resp.data.status=="Success") {
+                if (resp.data.status == "Success") {
                     console.log(resp.data)
                 } else {
                     console.log(resp.data)
                 }
-               alert(resp.data.message)
-               
-                }
-            ,(err) => {
+                alert(resp.data.message)
+                // alert.success("It's ok now!");
+
+            }
+            , (err) => {
                 console.log("err")
                 alert(err)
             }

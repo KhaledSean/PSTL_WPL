@@ -5,7 +5,9 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <MainPage/>
+    {/* <NavBarli/>
+    <HomePage/> */}
+     <MainPage/>
   </React.StrictMode>,
   document.getElementById('root')
 );

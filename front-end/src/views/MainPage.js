@@ -3,100 +3,136 @@ import axios from 'axios';
 import Login from './Login';
 import Signup from './Signup';
 import NavBarlo from './NavBarlo';
+import NavBarli from './NavBarli';
+import HomePage from './HomePage';
 import {
     NavbarBrand,
     Navbar,
     Button
-  } from 'reactstrap';
+} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../CSS/mycssfile.css';
+import Home from './Home';
+import backgroundIMG from '../img/HomeIMG.jpeg'
 
 
+const styleli = {
+    width: '100%',
+    height: '660px',
+    backgroundSize: 'cover'
+};
 
 const stylelo = {
     width: '100%',
     height: '660px',
-    backgroundSize: 'cover'  
-  };
+    backgroundImage: `url(${backgroundIMG})`,
+    backgroundSize: 'cover'
+};
 
 
-class MainPage extends Component{
-    constructor(props){
+class MainPage extends Component {
+    constructor(props) {
         super(props);
-        this.state={
-            sessionKey : "#",
-            userId : "#",
-            username : "#",
-            isLoggedIn : false,
-            currentPage : "mainpage"
+        this.state = {
+            // sessionKey : "#",
+            userId: "#",
+            username: "#",
+            isLoggedIn: false,
+            currentPage: "mainpage"
         }
-        this.setLoginInfo=this.setLoginInfo.bind(this)
-        this.setPage=this.setPage.bind(this)
-        this.selectRendering=this.selectRendering.bind(this)
+        this.setLoginInfo = this.setLoginInfo.bind(this)
+        this.setPage = this.setPage.bind(this)
+        this.selectRendering = this.selectRendering.bind(this)
     }
 
-    setLoginInfo(args){
+    setLoginInfo(args) {
+        console.log("Before")
+        console.log(this.state.userId)
+        console.log(this.state.username)
+        console.log(this.state.isLoggedIn)
         this.setState({
-            userId : args.userId,
-            sessionKey : args.sessionKey,
-            username : args.username, 
-            isLoggedIn : args.isLoggedIn, 
-            currentPage : args.page})
+            userId: args.userId,
+            username: args.username,
+            isLoggedIn: args.isLoggedIn,
+            currentPage: args.page
+        })
         this.forceUpdate()
+        console.log("After")
+        console.log(this.state.userId)
+        console.log(this.state.username)
+        console.log(this.state.isLoggedIn)
+        console.log("--------")
     }
 
-    setPage(page){
-        this.setState({currentPage : page})
+    setPage(page) {
+        this.setState({ currentPage: page })
     }
 
-    selectRendering(){
+    selectRendering() {
         let navbar;
         let page;
-            navbar=<NavBarlo setPage={this.setPage}/>
-            switch(this.state.currentPage){
-                case "login":
-                    page=<Login setLoginInfo={this.setLoginInfo}/>
+        if (this.state.isLoggedIn === true) {
+            navbar = <NavBarli
+                setPage={this.setPage}
+                userId={this.state.userId}
+                setLoginInfo={this.setLoginInfo} />
+            switch (this.state.currentPage) {
+                case "PublicationForm":
+                    page = <HomePage
+                        setPage={this.setPage}
+                        userId={this.state.userId}
+                        sessionKey={this.state.sessionKey}
+                        username={this.state.username} />
                     break
-                case "signup":
-                    page=<Signup setPage={this.setPage}/>
-                    break
+
                 default:
-                    page=<Login/>
+                    page = <HomePage
+                        userId={this.state.userId}
+                        sessionKey={this.state.sessionKey}
+                        username={this.state.username} />
                     break
+
             }
-            return(
+            return (
                 <div>
                     {navbar}
                     {page}
                 </div>
-            )               
-        }    
+            )
+        }
+        else {
+            navbar = <NavBarlo setPage={this.setPage} />
+            switch (this.state.currentPage) {
+                case "login":
+                    page = <Login setLoginInfo={this.setLoginInfo} />
+                    break
+                case "signup":
+                    page = <Signup setPage={this.setPage} />
+                    break
+                default:
+                    page = <Home />
+                    break
+            }
+            return (
+                <div>
+                    {navbar}
+                    {page}
+                </div>
+            )
+        }
 
-    render(){
+    }
+
+    render() {
         return (
-            <div style={stylelo} >
-                {/* <Navbar className="nav" color="dark" dark expand="md">
-                    <NavbarBrand href="#"                            
-                        onClick={(evt)=>this.props.setPage("homepage")}> 
-                        Home
-                    </NavbarBrand> 
-                    <Button 
-                        className="ml-auto mr-3" 
-                        onClick={(evt)=>this.props.setPage("login")}>
-                        Login
-                    </Button>
-                    <Button 
-                        className="mr-3" 
-                        onClick={(evt)=>this.props.setPage("signup")}>
-                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                            Signup
-                    </Button>
-                </Navbar> */}
-        
+            // <div style={stylelo} >
+            //     {this.selectRendering()}
+            // </div>
+            <div style={this.state.isLoggedIn ? styleli : stylelo}>
                 {this.selectRendering()}
             </div>
         )
     }
-  
+
 }
 export default MainPage;

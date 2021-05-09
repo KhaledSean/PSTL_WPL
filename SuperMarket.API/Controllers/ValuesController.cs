@@ -35,9 +35,19 @@ namespace SuperMarket.API.Controllers
         {
             Console.WriteLine("register");
 
-            Insertion(value);
-            return new Response
-            { status = "Success", message = "Record SuccessFully Saved." };
+            var boole = Insertion(value);
+            Console.WriteLine(boole);
+            if (boole)
+            {
+                return new Response
+                { status = "Success", message = "Record SuccessFully Saved." };
+            }
+            else
+            {
+                return new Response
+                { status = "Field", message = "Existing Record." };
+
+            }
         }
 
         //POST api/values
@@ -48,13 +58,14 @@ namespace SuperMarket.API.Controllers
             Console.WriteLine("login");
 
             var user = Log(value);
+            Console.WriteLine("user " + user);
             if (user != null)
             {
                 return new Response
-                { status = "Success", message = "Connection right" , data= user };
+                { status = "Success", message = "Connection right", data = user };
             }
             return new Response
-                { status = "Field", message = "Connection right" , data=null};
+            { status = "Field", message = "Connection field", data = null };
         }
 
         // PUT api/values/5

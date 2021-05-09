@@ -9,14 +9,14 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 import '../CSS/mycssfile.css';
-import { connect } from '../models/useAuth';
+
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: "",
-            password: "",
+            password: ""
         }
         this.canBeSubmitted = this.canBeSubmitted.bind(this)
     }
@@ -32,28 +32,54 @@ class Login extends Component {
     handleSubmit = (evt) => {
         evt.preventDefault()
         if (this.canBeSubmitted()) {
-            // axios.post('http://localhost:8080/PC3R_Project/Login', 
-            // require('querystring').stringify(this.state))
-            // .then(
-            //     (resp) => {
-            //         if(resp.data.status==="ok"){
-            //             alert(resp.data.message)
-            //             this.props.setLoginInfo({
-            //                 userId:resp.data.userId,
-            //                 sessionKey:resp.data.sessionKey,
-            //                 username:resp.data.username,
-            //                 isLoggedIn:true,page:"mainpage"})
-            //         }else{
-            //             alert(resp.data.message)
-            //         }
-            //     },(err) => {
-            //         alert(err)
-            //     }
-            // );
-            connect(
-                this.state.username,
-                this.state.password
-            )
+            // connect(
+            //     this.state.username,
+            //     this.state.password
+            // )
+            axios({
+                method: 'post',
+                url: `${'http://localhost:5000/api/values/login'}`,
+                data: {
+                    username: this.state.username,
+                    password: this.state.password
+                }
+                ,
+            })
+                .then(
+                    (resp) => {
+                        if (resp.data.status == "Success") {
+                            this.props.setLoginInfo({
+                                userId: resp.data.data._id,
+                                username: resp.data.data.username,
+                                isLoggedIn: true ,
+                                page: "mainpage"
+                            })
+                            console.log(resp.data.data._id)
+                            console.log("isLog")
+                            //console.log(this.props.isLoggedIn)
+                        } else {
+                            console.log(resp.data)
+                        }
+                        // if (resp.data.message == "Connection right") {
+                        //     setLoginInfo({
+                        //         userId:resp.data.userId,
+                        //         username:resp.data.username,
+                        //         isLoggedIn:true,
+                        //         page:"mainpage"})
+                        //         console.log("val")
+                        //         console.log(resp.data.data)
+
+                        // }else{
+                        //     console.log("false")
+                        // }
+                        alert(resp.data.message)
+
+                    }
+                    , (err) => {
+                        console.log("err")
+                        alert(err)
+                    }
+                )
         }
     }
 
@@ -93,4 +119,5 @@ class Login extends Component {
         )
     }
 }
+
 export default Login;

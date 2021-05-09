@@ -1,16 +1,14 @@
 import { callApiPost } from "../callApi/customCallApi";
 
 var data;
-export function register(
-    user,
-    pass,
-    first,
-    last
+export function register(first, last, user, pass,
 ) {
-    const data = {username:user,
-        password:pass,
-        firstname:first,
-        lastname:last}
+    const data = {
+        firstname: first,
+        lastname: last,
+        username: user,
+        password: pass,
+    }
     return callApiPost('values/register', data)
 }
 
@@ -18,7 +16,9 @@ export function connect(
     user,
     pass
 ) {
-    const data = {username:user,
-        password:pass}
+    const data = {
+        username: user,
+        password: pass
+    }
     return callApiPost('values/login', data)
 }
