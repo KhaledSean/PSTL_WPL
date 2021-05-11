@@ -27,6 +27,6 @@ namespace SuperMarket.API.Model
     {
         public string status { set; get; }
         public string message { set; get; }
-        public Register data { set; get; }
+        public int data { set; get; }
     }
 }

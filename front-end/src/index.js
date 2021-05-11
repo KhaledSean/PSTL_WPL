@@ -4,11 +4,7 @@ import MainPage from './views/MainPage';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    {/* <NavBarli/>
-    <HomePage/> */}
-     <MainPage/>
-  </React.StrictMode>,
+     <MainPage/>,
   document.getElementById('root')
 );
 

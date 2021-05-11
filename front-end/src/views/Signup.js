@@ -34,25 +34,6 @@ class Signup extends Component {
     }
 
 
-
-    // handleSubmit = (evt) => {
-    //     evt.preventDefault()
-    //     if(this.canBeSubmitted()){
-    //         axios.post('http://localhost:5000/back_end/Program/Btnreg_Click',require('querystring').stringify(this.state)).then(
-    //             alert("okey")
-    //             // (resp) => {
-    //             //     if(resp.data.status==="ok"){
-    //             //         alert(resp.data.message)
-    //             //         this.props.setPage("homepage")
-    //             //     }else{
-    //             //         alert(resp.data.message)
-    //             //     }
-    //             // },(err) => {
-    //             //     alert(err)
-    //             // }
-    //         );
-    //     }
-    // }
     handleSubmit = (evt) => {
         evt.preventDefault()
         if (this.canBeSubmitted()) {

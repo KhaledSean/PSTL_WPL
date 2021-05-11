@@ -49,12 +49,11 @@ class Login extends Component {
                     (resp) => {
                         if (resp.data.status == "Success") {
                             this.props.setLoginInfo({
-                                userId: resp.data.data._id,
-                                username: resp.data.data.username,
+                                userId: resp.data.data,
                                 isLoggedIn: true ,
-                                page: "mainpage"
+                                page: "HomePage"
                             })
-                            console.log(resp.data.data._id)
+                            console.log(resp.data.data)
                             console.log("isLog")
                             //console.log(this.props.isLoggedIn)
                         } else {

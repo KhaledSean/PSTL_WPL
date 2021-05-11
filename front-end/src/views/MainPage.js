@@ -14,6 +14,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../CSS/mycssfile.css';
 import Home from './Home';
 import backgroundIMG from '../img/HomeIMG.jpeg'
+import Patient from './Patient';
+import Appointments from './Appointments';
+import Disease from './Disease'
 
 
 const styleli = {
@@ -68,27 +71,61 @@ class MainPage extends Component {
         this.setState({ currentPage: page })
     }
 
+    componentDidMount() {
+        if (this.state.userId === "#") {
+            this.setState({ isLoggedIn: false })
+        } else {
+            this.setState({ isLoggedIn: true })
+        }
+    }
+
+
     selectRendering() {
+        console.log("is")
+        console.log(this.state.isLoggedIn)
+        console.log("C Page")
+        console.log(this.state.currentPage)
+
         let navbar;
         let page;
-        if (this.state.isLoggedIn === true) {
+        if (this.state.isLoggedIn == true) {
+
             navbar = <NavBarli
                 setPage={this.setPage}
                 userId={this.state.userId}
                 setLoginInfo={this.setLoginInfo} />
             switch (this.state.currentPage) {
-                case "PublicationForm":
+                case "Patient":
+                    page = <Patient
+                        setPage={this.setPage}
+                        userId={this.state.userId}
+                        username={this.state.username} />
+                    break
+
+                case "Appointments":
+                    page = <Appointments
+                        setPage={this.setPage}
+                        userId={this.state.userId}
+                        username={this.state.username} />
+                    break
+
+                case "Disease":
+                    page = <Disease
+                        setPage={this.setPage}
+                        userId={this.state.userId}
+                        username={this.state.username} />
+                    break
+
+                case "HomePage":
                     page = <HomePage
                         setPage={this.setPage}
                         userId={this.state.userId}
-                        sessionKey={this.state.sessionKey}
                         username={this.state.username} />
                     break
 
                 default:
                     page = <HomePage
                         userId={this.state.userId}
-                        sessionKey={this.state.sessionKey}
                         username={this.state.username} />
                     break
 

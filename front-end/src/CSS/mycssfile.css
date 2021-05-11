@@ -78,3 +78,10 @@
     margin-left: 30%;
 }
 
+.row {
+    margin-left: 0px;
+}
+
+td, td:hover {
+    font-weight: bold;
+  }

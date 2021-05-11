@@ -1,6 +1,4 @@
 import axios from "axios";
-import { connect } from '../models/useAuth';
-import { setLoginInfo } from '../views/MainPage';
 var apiUrl = 'http://localhost:5000/api'
 
 export function callApiGet(route) {

@@ -31,7 +31,7 @@ class NavBarli extends Component {
             <div>
                 <Navbar className="nav" color="dark" dark expand="md">
                     <Button
-                        onClick={(evt) => this.props.setPage("HomePageli")}>
+                        onClick={(evt) => this.props.setPage("HomePage")}>
                         Online Clinic Manager System
                 </Button>
                     <Button color="danger"

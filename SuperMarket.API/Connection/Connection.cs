@@ -16,13 +16,14 @@ namespace SuperMarket.API.Connection
             Console.WriteLine("Register start");
             var connString = "mongodb://127.0.0.1:27017";
             MongoClient client = new MongoClient(connString);
-            var db = client.GetDatabase("connecionDB");
+            var db = client.GetDatabase("dataPSTL");
             var collection = db.GetCollection<BsonDocument>("user");
 
             var firstFilter = Builders<BsonDocument>.Filter.Eq("username", value.username);
             var doc = collection.Find(firstFilter).FirstOrDefault();
 
-            Console.WriteLine("doc "+doc is null);
+            Console.WriteLine("doc " + doc is null);
+            Console.WriteLine("value._id.Timestamp >> " + value._id.Timestamp);
 
             if (doc is null)
             {
@@ -35,13 +36,13 @@ namespace SuperMarket.API.Connection
                     { "password", value.password }
                 };
                 collection.InsertOne(document);
+                Console.WriteLine("value._id.Timestamp >> " + value._id.Timestamp);
                 Console.WriteLine("Register finished");
                 Console.WriteLine("------------");
                 return true;
             }
 
             Console.WriteLine("not able");
-            Console.WriteLine("doc " + doc);
 
             var cursor = collection.Find(new BsonDocument()).ToCursor();
             foreach (var collect in cursor.ToEnumerable())
@@ -63,7 +64,7 @@ namespace SuperMarket.API.Connection
             Console.WriteLine("-----------");
             var connString = "mongodb://127.0.0.1:27017";
             MongoClient client = new MongoClient(connString);
-            var db = client.GetDatabase("connecionDB");
+            var db = client.GetDatabase("dataPSTL");
             var collection = db.GetCollection<Register>("user");
 
             var firstFilter = Builders<Register>.Filter.Eq("username", value.username);
@@ -74,7 +75,7 @@ namespace SuperMarket.API.Connection
             Console.WriteLine("value " + value.password);
 
             Console.WriteLine(doc.ToString());
-
+            Console.WriteLine("value._id.Timestamp >> " + doc._id.Timestamp);
 
             if (!doc.password.Equals(value.password))
             {
