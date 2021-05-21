@@ -44,7 +44,7 @@ class Signup extends Component {
                 this.state.username,
                 this.state.password)
         }
-        
+
     }
 
 
@@ -99,6 +99,7 @@ class Signup extends Component {
                         </FormGroup>
                     </Form>
                     <ButtonToggle className="signupBtn" type="submit"
+                        color="warning"
                         style={{ float: 'right' }}
                         onClick={this.handleSubmit} >Signup</ButtonToggle>
                 </div>

@@ -3,35 +3,37 @@ import {
     NavbarBrand,
     Navbar,
     Button
-  } from 'reactstrap';
+} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
-class NavBarlo extends Component{
+class NavBarlo extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={str : ""}
+        this.state = { str: "" }
     }
 
 
 
-    render(){
-        return(
+    render() {
+        return (
             <div >
                 <Navbar className="nav" color="dark" dark expand="md">
-                    <Button 
-                        className="ml-auto mr-3" 
-                        onClick={(evt)=>this.props.setPage("login")}>
+                    <Button
+                        color="primary"
+                        className="ml-auto mr-3"
+                        onClick={(evt) => this.props.setPage("login")}>
                         Login
                     </Button>
-                    <Button 
-                        className="mr-3" 
-                        onClick={(evt)=>this.props.setPage("signup")}>
-                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <Button
+                        color="primary"
+                        className="mr-3"
+                        onClick={(evt) => this.props.setPage("signup")}>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                             Signup
                     </Button>
                 </Navbar>
-        </div>
+            </div>
         )
     }
 }

@@ -10,6 +10,7 @@ using static SuperMarket.API.Connection.Connection;
 using static SuperMarket.API.PatientFunction.PatientFunction;
 using static SuperMarket.API.AppointmentFunction.AppointmentFunction;
 using static SuperMarket.API.DiseaseFunction.DiseaseFunction;
+using static SuperMarket.API.ReportFunction.ReportFunction;
 using SuperMarket.API.Model;
 
 namespace SuperMarket.API.Controllers
@@ -105,6 +106,15 @@ namespace SuperMarket.API.Controllers
             }
         }
 
+        // deletePatient 
+        [HttpDelete("deletePatient")]
+        public void Delete([FromBody] Patient value)
+        {
+            Console.WriteLine("Dpatient");
+            DeletePatient(value);
+        }
+
+
         // AddAppointment
         [HttpPost("addAppointment")]
         public object Post([FromBody] Appointment value)
@@ -152,7 +162,7 @@ namespace SuperMarket.API.Controllers
             }
         }
 
-        // AddPatient
+        // AddDisease
         [HttpPost("addDisease")]
         public object Post([FromBody] Disease value)
         {
@@ -173,7 +183,7 @@ namespace SuperMarket.API.Controllers
             }
         }
 
-        //ShowAppointment
+        //ShowReport
         [HttpPost("showDiseases")]
         public object Post([FromBody] DoctorDisease value)
         {
@@ -198,6 +208,55 @@ namespace SuperMarket.API.Controllers
 
             }
         }
+
+        //if[Report]
+        // AddReport
+        [HttpPost("addReport")]
+        public object Post([FromBody] Report value)
+        {
+            Console.WriteLine("addReport");
+
+            var boole = InsertionReport(value);
+            Console.WriteLine(boole);
+            if (boole)
+            {
+                return new Response
+                { status = "Success", message = "Record SuccessFully Saved." };
+            }
+            else
+            {
+                return new Response
+                { status = "Field", message = "Existing Record." };
+
+            }
+        }
+
+        //ShowReport
+        [HttpPost("showReports")]
+        public object Post([FromBody] DoctorReport value)
+        {
+            Console.WriteLine("showReport");
+            var v = ShowReport(value);
+
+            // var boole = ShowReport(value);
+            Console.WriteLine("show Doc");
+            Console.WriteLine(v);
+            Console.WriteLine(" v is null " + v != null);
+
+            if (v != null)
+            {
+                Console.WriteLine("Yeess");
+                return new ResponseReport
+                { status = "Success", message = "Record SuccessFully Saved.", data = v };
+            }
+            else
+            {
+                return new ResponseReport
+                { status = "Field", message = "Existing Record.", data = null };
+
+            }
+        }
+        //endif[Report]
 
 
         //Login

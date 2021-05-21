@@ -22,7 +22,7 @@ class NavBarli extends Component {
             userId: "#",
             page: "mainpage"
         })
-        console.log("********")        
+        console.log("********")
     }
 
 
@@ -31,6 +31,7 @@ class NavBarli extends Component {
             <div>
                 <Navbar className="nav" color="dark" dark expand="md">
                     <Button
+                        color="info"
                         onClick={(evt) => this.props.setPage("HomePage")}>
                         Online Clinic Manager System
                 </Button>

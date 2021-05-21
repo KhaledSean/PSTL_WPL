@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Login from './Login';
 import Signup from './Signup';
 import NavBarlo from './NavBarlo';
 import NavBarli from './NavBarli';
 import HomePage from './HomePage';
-import {
-    NavbarBrand,
-    Navbar,
-    Button
-} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../CSS/mycssfile.css';
 import Home from './Home';
 import backgroundIMG from '../img/HomeIMG.jpeg'
 import Patient from './Patient';
 import Appointments from './Appointments';
-import Disease from './Disease'
+import Disease from './Disease';
+//if[Calendar]
+import Calendar from './Calendar';
+//endif[Calendar]
+//if[Report]
+import Report from './ReportPage';
+//endif[Report]
+import './home.css';
 
 
 const styleli = {
@@ -37,7 +38,6 @@ class MainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // sessionKey : "#",
             userId: "#",
             username: "#",
             isLoggedIn: false,
@@ -116,12 +116,30 @@ class MainPage extends Component {
                         username={this.state.username} />
                     break
 
+                //if[Report]
+                case "Report":
+                    page = <Report
+                        setPage={this.setPage}
+                        userId={this.state.userId}
+                        username={this.state.username} />
+                    break
+                //endif[Report]
+
                 case "HomePage":
                     page = <HomePage
                         setPage={this.setPage}
                         userId={this.state.userId}
                         username={this.state.username} />
                     break
+
+                //if[Calendar]
+                case "Calendar":
+                    page = <Calendar
+                        setPage={this.setPage}
+                        userId={this.state.userId}
+                        username={this.state.username} />
+                    break
+                //endif[Calendar]
 
                 default:
                     page = <HomePage
@@ -161,14 +179,27 @@ class MainPage extends Component {
     }
 
     render() {
-        return (
-            // <div style={stylelo} >
-            //     {this.selectRendering()}
-            // </div>
-            <div style={this.state.isLoggedIn ? styleli : stylelo}>
-                {this.selectRendering()}
-            </div>
-        )
+
+        if (this.state.isLoggedIn) {
+            return (
+                <div style={styleli}>
+                    {this.selectRendering()}
+                </div>
+            )
+        } else {
+            return (
+                <div >
+                    {this.selectRendering()}
+                    <div className="mt-5 image-grid-item" >
+                        <div className="image-grid-cover-home homeIMG">
+                            <div className="a-home image-grid-clickbox-home"></div>
+                            <div className="a-home cover-wrapper-home">Welcome to Clinic Management System</div>
+
+                        </div>
+                    </div>
+                </div>
+            )
+        }
     }
 
 }

@@ -109,7 +109,7 @@ class Disease extends Component {
     render() {
         return (
             <Container className="mt-5 p-2">
-                <Row>
+                
                     <div style={{ maxWidth: '100%' }}>
                         <MaterialTable
                             icons={tableIcons}
@@ -161,7 +161,7 @@ class Disease extends Component {
                         />
                     </div>
 
-                </Row>
+               
             </Container>
         )
     }

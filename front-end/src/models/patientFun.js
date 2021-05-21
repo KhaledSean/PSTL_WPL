@@ -1,4 +1,4 @@
-import { callApiPost } from "../callApi/customCallApi";
+import { callApiDelete, callApiPost } from "../callApi/customCallApi";
 
 var data;
 export function registerPatient(idDoctorP,
@@ -20,4 +20,12 @@ export function registerPatient(idDoctorP,
         gender: genderP,
     }
     return callApiPost('values/addPatient', data)
+}
+
+export function deletePatient(idPatientP) {
+        console.log("idPatientP")
+        console.log(idPatientP)
+    const data = {
+        idPatient: idPatientP}
+    return callApiDelete('values/deletePatient', data)
 }

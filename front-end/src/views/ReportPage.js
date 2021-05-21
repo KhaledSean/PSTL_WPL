@@ -1,23 +1,9 @@
+//if[Report]
 import { Component } from "react";
 import {
-    Row,
-    Col,
-    Table,
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    ButtonToggle,
     Container
 } from 'reactstrap';
 import axios from 'axios';
-import { registerPatient, deletePatient } from '../models/patientFun';
 
 import { forwardRef } from 'react';
 import MaterialTable from 'material-table';
@@ -36,6 +22,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import { registerReport } from "../models/reportFun";
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -59,61 +46,27 @@ const tableIcons = {
 
 
 
-class Patient extends Component {
+class Report extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userId: props.userId,
             username: props.username,
-            patients: [],
-            firstNamePatient: "",
-            lastNamePatient: "",
-            age: "",
-            history: "",
-            location: "",
-            gender: ""
+            report: [],
+            reportName: "",
+            content: "",
+            reference: ""
         }
-        this.canBeSubmitted = this.canBeSubmitted.bind(this)
-        this.clearForm = this.clearForm.bind(this)
     }
-
-
-    clearForm() {
-        this.setState({
-            firstNamePatient: "",
-            lastNamePatient: "",
-            age: "",
-            history: "",
-            location: "",
-            gender: ""
-        })
-    }
-
-    addPatient = (evt) => {
-        evt.preventDefault()
-        registerPatient(this.state.userId,
-            this.state.firstNamePatient,
-            this.state.lastNamePatient,
-            this.state.age,
-            this.state.history,
-            this.state.location,
-            this.state.gender)
-    }
-    delPatient = (evt) => {
-        evt.preventDefault()
-        deletePatient(this.state.userId)
-    }
-
-
 
 
     componentDidMount() {
-        console.log("patients")
+        console.log("Report")
         console.log(this.state.userId)
         let l = [];
         axios({
             method: 'post',
-            url: `${'http://localhost:5000/api/values/showPatients'}`,
+            url: `${'http://localhost:5000/api/values/showReports'}`,
             data: {
                 userId: this.state.userId
             }
@@ -124,8 +77,8 @@ class Patient extends Component {
                     if (resp.data.status == "Success") {
                         console.log("right")
                         console.log(resp.data)
-                        this.setState(this.state.patients = resp.data.data)
-                        console.log("pat")
+                        this.setState(this.state.report = resp.data.data)
+                        console.log("Reports")
                     } else {
                         console.log(resp.data)
                     }
@@ -135,26 +88,15 @@ class Patient extends Component {
                     alert(err)
                 }
             )
+        console.log("Fin Report")
         this.forceUpdate()
     }
 
 
-
-    canBeSubmitted() {
-        return (
-            this.state.userId.length > 0
-            && this.state.firstNamePatient.length > 0
-            && this.state.lastNamePatient.length > 0
-            && this.state.age.length > 0
-            && this.state.history.length > 0
-            && this.state.location.length > 0
-            && this.state.gender.length > 0
-        )
-    }
-
     render() {
         return (
             <Container className="mt-5 p-2">
+
                 <div style={{ maxWidth: '100%' }}>
                     <MaterialTable
                         icons={tableIcons}
@@ -172,19 +114,12 @@ class Patient extends Component {
                                     setTimeout(() => {
                                         console.log(newData);
                                         if (
-                                            newData.firstNamePatient.length > 0
-                                            && newData.lastNamePatient.length > 0
-                                            && newData.history.length > 0
-                                            && newData.location.length > 0
-                                            && newData.gender.length > 0
+                                            newData.reportName.length > 0
+                                            && newData.content.length > 0
                                         ) {
-                                            registerPatient(this.state.userId,
-                                                newData.firstNamePatient,
-                                                newData.lastNamePatient,
-                                                newData.age,
-                                                newData.history,
-                                                newData.location,
-                                                newData.gender)
+                                            registerReport(this.state.userId,
+                                                newData.reportName,
+                                                newData.content)
                                             this.componentDidMount();
                                         }
                                         else {
@@ -199,19 +134,15 @@ class Patient extends Component {
                             rowData => ({
                                 icon: () => <DeleteOutline />,
                                 tooltip: 'Delete User',
-                                onClick: (event, rowData) => alert("You want to delete " + rowData.firstNamePatient)
+                                onClick: (event, rowData) => alert("You want to delete " + rowData.report)
                             })
                         ]}
                         columns={[
-                            { title: 'FirstName', field: 'firstNamePatient' },
-                            { title: 'LastName', field: 'lastNamePatient' },
-                            { title: 'Gender', field: 'gender' },
-                            { title: 'Age', field: 'age', type: 'numeric' },
-                            { title: 'Location', field: 'location' },
-                            { title: 'History', field: 'history' }
+                            { title: 'Report', field: 'reportName' },
+                            { title: 'Content', field: 'content' }
                         ]}
-                        data={this.state.patients}
-                        title="Liste des patients"
+                        data={this.state.report}
+                        title="Reports List"
                     />
                 </div>
 
@@ -220,4 +151,5 @@ class Patient extends Component {
     }
 
 }
-export default Patient;
+export default Report;
+//endif[Report]

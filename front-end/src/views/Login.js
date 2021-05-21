@@ -50,7 +50,7 @@ class Login extends Component {
                         if (resp.data.status == "Success") {
                             this.props.setLoginInfo({
                                 userId: resp.data.data,
-                                isLoggedIn: true ,
+                                isLoggedIn: true,
                                 page: "HomePage"
                             })
                             console.log(resp.data.data)
@@ -111,6 +111,7 @@ class Login extends Component {
                         </FormGroup>
                     </Form>
                     <ButtonToggle className="loginBtn" type="submit"
+                        color="warning"
                         style={{ float: 'right' }}
                         onClick={this.handleSubmit} >Login</ButtonToggle>
                 </div>
